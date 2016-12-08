@@ -10,6 +10,13 @@
 
   <%= flash[:messages] %>
 
+<% if logged_in? %>
+  <nav>
+    <p>Logged in as: <%= current_user.email %></p>
+  <%= button_to "Logout", session_url , method: :delete %>
+</nav>
+<% end %>
+
 <%= yield %>
 
 </body>
