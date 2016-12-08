@@ -21,5 +21,13 @@ class Album < ActiveRecord::Base
   has_many :tracks,
     primary_key: :id,
     foreign_key: :album_id,
-    class_name: :Track
+    class_name: :Track,
+    dependent: :destroy
+
+  validates :band, :name, :year, presence: true
+  validates :live, inclusion: { in: [true, false] }
+  validates :name, uniqueness: { scope: :band_id }
+  validates :year, numericality: { minimum: 1930, maximum: 2016 }
+
+
 end

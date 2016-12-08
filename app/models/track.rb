@@ -18,4 +18,12 @@ class Track < ActiveRecord::Base
     primary_key: :id,
     foreign_key: :album_id,
     class_name: :Album
+
+  has_one :band,
+    through: :album,
+    source: :band
+
+  validates :album, :lyrics, :name, :ord, presence: true
+  validates :bonus, inclusion: { in: [true, false] }
+  validates :ord, uniqueness: { scope: :album_id }
 end
